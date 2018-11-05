@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Expenses extends JFrame{
+public class Expenses extends JFrame implements ActionListener{
 	//going to create properties for the class
 	private JButton exp; //the expense button
 	//private JLabel expLabel; //the label for the expense button
@@ -14,6 +14,11 @@ public class Expenses extends JFrame{
 	private JPanel createPanel; //this is the create expense panel
 	private JLabel vendor; //the label for the vendor
 	private JTextField vendorField; //the text field for the vendor
+	private JLabel accountLabel; //label for the account text field
+	private JTextField accountField; //text field for the account
+	private JLabel amountLabel; //label for the amount
+	private JTextField amountField; //text field for the amount
+	private JButton saveNclose; //button to save the text fields and return to main panel
 	
 	//constructor
 	public Expenses()
@@ -33,7 +38,13 @@ public class Expenses extends JFrame{
 		createPanel = new JPanel();
 		vendor = new JLabel("Vendor");
 		vendorField = new JTextField(12);
-		
+		accountLabel = new JLabel("Account");
+		accountField = new JTextField(12);
+		amountLabel = new JLabel("Amount");
+		amountField = new JTextField(12);
+		saveNclose = new JButton("Save and Close");
+		//add action listeners to the button
+		exp.addActionListener(this);
 
 		//add to main panel and set layout
 		mainPanel.setLayout(new FlowLayout());
@@ -45,11 +56,27 @@ public class Expenses extends JFrame{
 		createPanel.setLayout(new FlowLayout());
 		createPanel.add(vendor);
 		createPanel.add(vendorField);
+		createPanel.add(accountLabel);
+		createPanel.add(accountField);
+		createPanel.add(amountLabel);
+		createPanel.add(amountField);
+		createPanel.add(saveNclose);
 		add(createPanel, "Create Panel");
 
 		
 		//set visible
 		setVisible(true);
+	}
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		//create object source
+		Object source = e.getSource();
+		//if user click button it will take them to the next page
+		if(source == exp)
+		{
+			cardLayout.show(getContentPane(), "Create Panel");
+		}
 	}
 
 }
