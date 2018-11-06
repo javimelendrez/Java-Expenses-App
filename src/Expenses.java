@@ -2,6 +2,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*; //needed for linked list
 
 public class Expenses extends JFrame implements ActionListener{
 	//going to create properties for the class
@@ -9,7 +10,7 @@ public class Expenses extends JFrame implements ActionListener{
 	//private JLabel expLabel; //the label for the expense button
 	private JPanel mainPanel; //going to be the main panel for the app
 	CardLayout cardLayout = new CardLayout(); //will be using a cardlayout
-	private final int WIDTH = 500; //will be used for set size
+	private final int WIDTH = 200; //will be used for set size
 	private final int HEIGHT = 500;
 	private JPanel createPanel; //this is the create expense panel
 	private JLabel vendor; //the label for the vendor
@@ -19,6 +20,8 @@ public class Expenses extends JFrame implements ActionListener{
 	private JLabel amountLabel; //label for the amount
 	private JTextField amountField; //text field for the amount
 	private JButton saveNclose; //button to save the text fields and return to main panel
+	//going to create data structures to hold info
+	LinkedList<String> accountSummary = new LinkedList<String>();
 	
 	//constructor
 	public Expenses()
@@ -45,7 +48,7 @@ public class Expenses extends JFrame implements ActionListener{
 		saveNclose = new JButton("Save and Close");
 		//add action listeners to the button
 		exp.addActionListener(this);
-
+		saveNclose.addActionListener(this);
 		//add to main panel and set layout
 		mainPanel.setLayout(new FlowLayout());
 		mainPanel.add(exp);
@@ -77,6 +80,19 @@ public class Expenses extends JFrame implements ActionListener{
 		{
 			cardLayout.show(getContentPane(), "Create Panel");
 		}
+		//if the user clicks on save and close return to main panel
+		if (source == saveNclose)
+		{
+			cardLayout.show(getContentPane(), "Main Panel");
+			accountSummary.add(vendorField.getText()+" "+accountField.getText()+" "+amountField.getText());
+			System.out.println(accountSummary);
+			vendorField.setText("");
+			accountField.setText("");
+			amountField.setText("");
+			
+		}
+		//get the string of the fields
+
 	}
 
 }
